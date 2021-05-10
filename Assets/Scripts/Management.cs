@@ -10,6 +10,7 @@ public class Management : MonoBehaviour
     public List<SelectableObject> listOfSelected;
     public Image frameImage;
     public Camera mainCamera;
+    
     Vector2 frameStart;
     Vector2 frameEnd;
 
@@ -20,6 +21,8 @@ public class Management : MonoBehaviour
 
     void Update()
     {
+        bool cursorOnUIElement = EventSystem.current.IsPointerOverGameObject();
+
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
 
@@ -49,10 +52,11 @@ public class Management : MonoBehaviour
                 UnhoverCurrent();
             }
         }
-        else 
+        else
         {
             UnhoverCurrent();
         }
+        
 
         if (Input.GetMouseButtonUp(1))
         {
@@ -62,13 +66,13 @@ public class Management : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !cursorOnUIElement)
         {
             frameImage.enabled = true;
             frameStart = Input.mousePosition;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !cursorOnUIElement)
         {
             frameEnd = Input.mousePosition;
             Vector2 min = Vector2.Min(frameStart, frameEnd);
@@ -76,7 +80,7 @@ public class Management : MonoBehaviour
             frameImage.rectTransform.anchoredPosition = min;
             Vector2 size = max - min;
             frameImage.rectTransform.sizeDelta = size;
-            if (!Input.GetKey(KeyCode.LeftControl) && !EventSystem.current.IsPointerOverGameObject()) 
+            if (!Input.GetKey(KeyCode.LeftControl) ) 
                 UnselectAll();
             Rect rect = new Rect(min, size);
             Unit[] allUnits = FindObjectsOfType<Unit>();
@@ -91,7 +95,7 @@ public class Management : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (!Input.GetKey(KeyCode.LeftControl) && Vector2.Distance(frameEnd, frameStart) < 10 && !EventSystem.current.IsPointerOverGameObject())
+            if (!Input.GetKey(KeyCode.LeftControl) && Vector2.Distance(frameEnd, frameStart) < 10 && !cursorOnUIElement)
                 UnselectAll();
             frameImage.enabled = false;
             if (hovered)
@@ -131,7 +135,7 @@ public class Management : MonoBehaviour
         }
     }
 
-    private void UnselectAll()
+    public void UnselectAll()
     {
         listOfSelected.ForEach((current) => current.Unselect());
         listOfSelected.Clear();

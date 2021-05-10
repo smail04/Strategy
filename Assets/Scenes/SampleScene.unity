@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
   currentBuilding: {fileID: 0}
+  management: {fileID: 2065273257}
 --- !u!4 &140030127
 Transform:
   m_ObjectHideFlags: 0
