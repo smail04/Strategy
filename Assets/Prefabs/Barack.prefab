@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 6822780410262530593}
   - component: {fileID: 7796534282402551156}
   - component: {fileID: 2278121534881191902}
+  - component: {fileID: -3967957143542045916}
   m_Layer: 0
   m_Name: Barack
   m_TagString: Untagged
@@ -594,6 +595,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectableObject: {fileID: 6822780410262530593}
+--- !u!208 &-3967957143542045916
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822780410262530591}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.041242, y: 1.1422285, z: 1.1297065}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.041242, y: 1.142229, z: 1.028902}
+  m_TimeToStationary: 0.5
 --- !u!1001 &6822780409495703776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,13 +680,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c287192959b70c4aa3f91eefb17551d, type: 3}
---- !u!23 &5235287854053923725 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 4c287192959b70c4aa3f91eefb17551d, type: 3}
-  m_PrefabInstance: {fileID: 6822780409495703776}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6423782195390920459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c287192959b70c4aa3f91eefb17551d, type: 3}
+  m_PrefabInstance: {fileID: 6822780409495703776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5235287854053923725 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 4c287192959b70c4aa3f91eefb17551d, type: 3}
   m_PrefabInstance: {fileID: 6822780409495703776}
   m_PrefabAsset: {fileID: 0}
