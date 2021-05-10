@@ -9,6 +9,9 @@ public class BuildingButton : MonoBehaviour
 
     public void TryBuy()
     {
+        if (placer.currentBuilding)
+            return;
+
         int price = buildingPrefab.GetComponent<Building>().price;
         if (price <= Resources.Money)
         {
