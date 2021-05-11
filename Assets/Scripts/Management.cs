@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class Management : MonoBehaviour
 {
-    public SelectableObject hovered;
     public List<SelectableObject> listOfSelected;
+
+    public SelectableObject hovered;
     public Image frameImage;
     public Camera mainCamera;
     
@@ -20,7 +21,7 @@ public class Management : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
         bool cursorOnUIElement = EventSystem.current.IsPointerOverGameObject();
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -62,7 +63,8 @@ public class Management : MonoBehaviour
         {
             if (hit.collider.tag == "Ground")
             {
-                listOfSelected.ForEach((current)=>current.WhenClickOnGround(hit.point));   
+                foreach (var selected in listOfSelected)
+                    if (selected) selected.WhenClickOnGround(hit.point);
             }
         }
 
@@ -137,7 +139,9 @@ public class Management : MonoBehaviour
 
     public void UnselectAll()
     {
-        listOfSelected.ForEach((current) => current.Unselect());
+        foreach (var selected in listOfSelected)
+            if (selected) selected.Unselect();
         listOfSelected.Clear();
     }
+
 }
