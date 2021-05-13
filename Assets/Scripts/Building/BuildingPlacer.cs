@@ -8,6 +8,7 @@ public class BuildingPlacer : MonoBehaviour
     public Camera mainCamera;
     public Building currentBuilding;
     public Management management;
+    public Transform parentTransform;
     public Dictionary<Vector2Int, Building> buildingDict = new Dictionary<Vector2Int, Building>();
 
     private void Update()
@@ -55,6 +56,7 @@ public class BuildingPlacer : MonoBehaviour
             for (int z = 0; z < currentBuilding.ZSize; z++)
             {
                 buildingDict.Add(new Vector2Int(xPos + x, zPos + z), building);
+                building.isPlaced = true;
             }
         management.enabled = true;
     }
@@ -73,6 +75,7 @@ public class BuildingPlacer : MonoBehaviour
     public void CreateBuilding(GameObject buildingPrefab)
     {
         currentBuilding = (Instantiate(buildingPrefab)).GetComponent<Building>();
+        currentBuilding.transform.parent = parentTransform;
         management.enabled = false;
     }
 
