@@ -18,11 +18,13 @@ public class Enemy : MonoBehaviour
 {
     public EnemyState currentEnemyState;
     public int health;
+    private int _maxHealth;
     public Building targetBuilding;
     public Unit targetUnit;
     public float distanceToFollow;
     public float distanceToAttack;
-
+    public GameObject healthBarPrefab;
+    private HealthBar _healthBar;
     public NavMeshAgent navMeshAgent;
     public float attackPeriod = 1;
     public int damage = 1;
@@ -32,7 +34,10 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         SetState(EnemyState.WalkToBuilding);
-
+        _maxHealth = health;
+        GameObject healthBar = Instantiate(healthBarPrefab);
+        _healthBar = healthBar.GetComponent<HealthBar>();
+        _healthBar.Setup(transform);
     }
 
     private void Update()
@@ -40,6 +45,9 @@ public class Enemy : MonoBehaviour
         if (currentEnemyState == EnemyState.Idle)
         {
             FindClosestUnit();
+            FindClosestBuilding();
+            if (targetBuilding)
+                SetState(EnemyState.WalkToBuilding);
         }
         else if (currentEnemyState == EnemyState.WalkToBuilding)
         {
@@ -69,7 +77,7 @@ public class Enemy : MonoBehaviour
         {
             if (targetUnit)
             {
-
+                navMeshAgent.SetDestination(targetUnit.transform.position);
                 float distance = Vector3.Distance(transform.position, targetUnit.transform.position);
                 if (distance > distanceToAttack)
                 {
@@ -99,7 +107,11 @@ public class Enemy : MonoBehaviour
         else if (currentEnemyState == EnemyState.WalkToBuilding)
         {
             FindClosestBuilding();
-            navMeshAgent.SetDestination(targetBuilding.transform.position);
+            if (targetBuilding)
+                navMeshAgent.SetDestination(targetBuilding.transform.position);
+            else
+                SetState(EnemyState.Idle);
+
         }
         else if (currentEnemyState == EnemyState.WalkToUnit)
         {
@@ -121,6 +133,9 @@ public class Enemy : MonoBehaviour
 
         foreach (var building in allBuildings)
         {
+            if (!building.isPlaced)
+                continue;
+
             float distance = Vector3.Distance(transform.position, building.transform.position);
             if (distance < minDistance)
             {
@@ -155,6 +170,21 @@ public class Enemy : MonoBehaviour
             targetUnit = closestUnit;
             SetState(EnemyState.WalkToUnit);
         }
+    }
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        _healthBar.SetHealth(health, _maxHealth);
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(_healthBar.gameObject);
+        Destroy(gameObject);
     }
 
 #if UNITY_EDITOR
