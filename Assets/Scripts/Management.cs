@@ -63,8 +63,28 @@ public class Management : MonoBehaviour
         {
             if (hit.collider.tag == "Ground")
             {
-                foreach (var selected in listOfSelected)
-                    if (selected) selected.WhenClickOnGround(hit.point);
+                int unitCount = 0; 
+                //—читаю только юнитов
+                listOfSelected.ForEach((selectable)=> 
+                                        { 
+                                            if (selectable is Unit) 
+                                                unitCount++; 
+                                        });
+                if (unitCount != 0)
+                {
+                    int dimension = Mathf.CeilToInt(Mathf.Sqrt(unitCount));
+
+                    int unitIndex = 0;
+                    foreach (var selected in listOfSelected)
+                        if (selected)
+                        {
+                            Vector3 point = hit.point + new Vector3((unitIndex / dimension),
+                                                                    0,
+                                                                    (unitIndex % dimension));
+                            selected.WhenClickOnGround(point);
+                            unitIndex++;
+                        }
+                }
             }
         }
 
