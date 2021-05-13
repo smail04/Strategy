@@ -10,9 +10,9 @@ public class Unit : SelectableObject
     private int _maxHealth;
     public NavMeshAgent navMeshAgent;
     public GameObject healthBarPrefab;
+    public GameObject moveTargetIndicator;
     private HealthBar _healthBar;
     
-
     protected override void Start()
     {
         base.Start();
@@ -27,6 +27,8 @@ public class Unit : SelectableObject
     {
         base.WhenClickOnGround(point);
         navMeshAgent.SetDestination(point);
+        GameObject indicator = Instantiate(moveTargetIndicator, point, Quaternion.identity);
+        Destroy(indicator, 1);
     }
 
     public void TakeDamage(int amount)
