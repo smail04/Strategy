@@ -155,7 +155,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194227}
   currentBuilding: {fileID: 0}
   management: {fileID: 2065273257}
-  parentTransform: {fileID: 458865008}
+  parentTransform: {fileID: 0}
 --- !u!4 &140030127
 Transform:
   m_ObjectHideFlags: 0
