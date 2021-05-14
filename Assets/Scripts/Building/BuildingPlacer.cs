@@ -9,7 +9,7 @@ public class BuildingPlacer : MonoBehaviour
     public Building currentBuilding;
     public Management management;
     public Transform parentTransform;
-    public Dictionary<Vector2Int, Building> buildingDict = new Dictionary<Vector2Int, Building>();
+    public Dictionary<Vector2Int, MonoBehaviour> occupiedCells = new Dictionary<Vector2Int, MonoBehaviour>();
 
     private void Update()
     {
@@ -55,7 +55,7 @@ public class BuildingPlacer : MonoBehaviour
         for (int x = 0; x < currentBuilding.XSize; x++)
             for (int z = 0; z < currentBuilding.ZSize; z++)
             {
-                buildingDict.Add(new Vector2Int(xPos + x, zPos + z), building);
+                occupiedCells.Add(new Vector2Int(xPos + x, zPos + z), building);
                 building.isPlaced = true;
             }
         management.enabled = true;
@@ -66,7 +66,7 @@ public class BuildingPlacer : MonoBehaviour
         for (int x = 0; x < currentBuilding.XSize; x++)
             for (int z = 0; z < currentBuilding.ZSize; z++)
             {
-                if (buildingDict.ContainsKey(new Vector2Int(xPos + x, zPos + z)))
+                if (occupiedCells.ContainsKey(new Vector2Int(xPos + x, zPos + z)))
                     return false;
             }
         return true;
