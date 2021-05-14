@@ -6,7 +6,8 @@ public class Building : SelectableObject
 {
     public int price;
     public int XSize = 3;
-    public int ZSize = 3;    
+    public int ZSize = 3;   
+    public bool isPlaced;
     public Renderer Renderer;
     private Color _startColor;
 

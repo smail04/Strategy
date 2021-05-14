@@ -15,6 +15,6 @@ public class Resources : MonoBehaviour
         {
             moneyText = GameObject.FindGameObjectWithTag("MoneyAmountText").GetComponent<Text>();
         }
-        moneyText.text = "Money: " + money.ToString();
+        moneyText.text = money.ToString();
     }
 }

@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class Management : MonoBehaviour
 {
-    public SelectableObject hovered;
     public List<SelectableObject> listOfSelected;
+
+    public SelectableObject hovered;
     public Image frameImage;
     public Camera mainCamera;
     
@@ -20,7 +21,7 @@ public class Management : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
         bool cursorOnUIElement = EventSystem.current.IsPointerOverGameObject();
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -62,7 +63,28 @@ public class Management : MonoBehaviour
         {
             if (hit.collider.tag == "Ground")
             {
-                listOfSelected.ForEach((current)=>current.WhenClickOnGround(hit.point));   
+                int unitCount = 0; 
+                //—читаю только юнитов
+                listOfSelected.ForEach((selectable)=> 
+                                        { 
+                                            if (selectable is Unit) 
+                                                unitCount++; 
+                                        });
+                if (unitCount != 0)
+                {
+                    int dimension = Mathf.CeilToInt(Mathf.Sqrt(unitCount));
+
+                    int unitIndex = 0;
+                    foreach (var selected in listOfSelected)
+                        if (selected)
+                        {
+                            Vector3 point = hit.point + new Vector3((unitIndex / dimension),
+                                                                    0,
+                                                                    (unitIndex % dimension));
+                            selected.WhenClickOnGround(point);
+                            unitIndex++;
+                        }
+                }
             }
         }
 
@@ -137,7 +159,9 @@ public class Management : MonoBehaviour
 
     public void UnselectAll()
     {
-        listOfSelected.ForEach((current) => current.Unselect());
+        foreach (var selected in listOfSelected)
+            if (selected) selected.Unselect();
         listOfSelected.Clear();
     }
+
 }

@@ -7,7 +7,7 @@ public class SelectableObject : MonoBehaviour
 
     public GameObject selectionIndicator;
 
-    private void Start()
+    protected virtual void Start()
     {
         Unselect();
     }
