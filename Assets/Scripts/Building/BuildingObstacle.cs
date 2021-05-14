@@ -72,8 +72,8 @@ public class BuildingObstacle: MonoBehaviour
     private bool CheckObstacleIntersectionWithCell(int xCellCoord, int zCellCoord)
     {
         RaycastHit hit;
-        return Physics.BoxCast(new Vector3(xCellCoord, transform.position.y - 10f, zCellCoord), Vector3.one * BuildingPlacer.cellSize * 0.5f, 
-                                Vector3.up, out hit, Quaternion.identity, 10.1f, _buildingObstacleLayer);
+        return Physics.BoxCast(new Vector3(xCellCoord, transform.position.y - 100f, zCellCoord), Vector3.one * BuildingPlacer.cellSize * 0.5f, 
+                                Vector3.up, out hit, Quaternion.identity, 100.1f, _buildingObstacleLayer);
     }
 
     private void RemoveCells()
