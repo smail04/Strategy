@@ -27,6 +27,8 @@ public class Unit : SelectableObject
     {
         base.WhenClickOnGround(point);
         navMeshAgent.SetDestination(point);
+        if (this is Knight)
+            ((Knight)this).SetState(UnitState.WalkToPoint);
         GameObject indicator = Instantiate(moveTargetIndicator, point, Quaternion.identity);
         Destroy(indicator, 1);
     }

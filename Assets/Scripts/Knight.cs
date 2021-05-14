@@ -9,7 +9,7 @@ using UnityEngine.AI;
 public enum UnitState 
 {
     Idle, 
-    WalkToPoint, 
+    WalkToPoint,
     WalkToEnemy, 
     Attack
 }
@@ -30,7 +30,7 @@ public class Knight : Unit
     protected override void Start()
     {
         base.Start();
-        SetState(UnitState.WalkToPoint);
+        SetState(UnitState.Idle);
     }
 
     private void Update()
@@ -41,7 +41,8 @@ public class Knight : Unit
         }
         else if (currentUnitState == UnitState.WalkToPoint)
         {
-            FindClosestEnemy();
+            if (navMeshAgent.velocity.magnitude < 0.01f)
+                SetState(UnitState.Idle);
         }
         else if (currentUnitState == UnitState.WalkToEnemy)
         {
@@ -51,7 +52,7 @@ public class Knight : Unit
                 float distance = Vector3.Distance(transform.position, targetEnemy.transform.position);
                 if (distance > distanceToFollow)
                 {
-                    SetState(UnitState.WalkToPoint);
+                    SetState(UnitState.Idle);
                 }
                 if (distance < distanceToAttack)
                 {
