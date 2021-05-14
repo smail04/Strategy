@@ -2051,7 +2051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawningPrefab: {fileID: 6932808918896505170, guid: 3436b3b0bb4009a4493657682f3f99d4, type: 3}
-  period: 4
+  period: 8
 --- !u!1 &1802821466
 GameObject:
   m_ObjectHideFlags: 0
